@@ -7,17 +7,11 @@ function randomValueFromArray(array) {
     return array[random];
 }
 
-
-
-
 const storyText = 'It was 94 fahrenheit outside, so insertX went for a walk. When they got to insertY, they stared in horror for a few moments, then insertZ. Bob saw the whole thing, but was not surprised — insertX weighs 300 pounds, and it was a hot day.';
 
-insertX = ["Willy the Goblin", "Big Daddy", "Father Christmas"];
-
-insertY = ["the soup kitchen", "Disneyland", "the White House"];
-
-insertZ = ["spontaneously combusted", "melted into a puddle on the sidewalk", "turned into a slug and crawled away"];
-
+const insertX = ["Willy the Goblin", "Big Daddy", "Father Christmas"];
+const insertY = ["the soup kitchen", "Disneyland", "the White House"];
+const insertZ = ["spontaneously combusted", "melted into a puddle on the sidewalk", "turned into a slug and crawled away"];
 
 randomize.addEventListener('click', result);
 
@@ -28,28 +22,23 @@ function result() {
     const yItem = randomValueFromArray(insertY);
     const zItem = randomValueFromArray(insertZ);
 
-    newstory=newstory.replaceAll('insertX',xItem)
-    
-    newstory=newstory.replaceAll('insertY',yItem)
-    
-    newstory=newstory.replaceAll('insertZ',zItem)
+    newstory = newstory.replaceAll('insertX', xItem);
+    newstory = newstory.replaceAll('insertY', yItem);
+    newstory = newstory.replaceAll('insertZ', zItem);
 
-    if (customName.value !==' ') {
-       const name = customName.value;
-        newstory = newstory.replaceAll('Bob',name);
-      }
-
-
-
+    if (customName.value !== '') { // Corrected check from ' ' to ''
+        const name = customName.value;
+        newstory = newstory.replaceAll('Bob', name);
+    }
 
     if (document.getElementById("uk").checked) {
-         weight = `${Math.round(300*0.0714286)} stone`;
-         temperature = `${Math.round((94-32) * 5 / 9)} centigrade`;
+        const weight = `${Math.round(300 * 0.0714286)} stone`;
+        const temperature = `${Math.round((94 - 32) * 5 / 9)} centigrade`;
         newstory = newstory.replaceAll('94 fahrenheit', temperature);
-        newstory = newstory.replaceAll('300', weight);
-
+        newstory = newstory.replaceAll('300 pounds', weight); // Changed '300' to '300 pounds' to avoid replacing "300" in "300 pounds" if it was already handled. If "300 pounds" appears in original story text, it's safer.
     }
 
     story.textContent = newstory;
-    story.style.visibility = 'visible';
+    // Add the 'visible' class to trigger the CSS transition for fade-in effect
+    story.classList.add('visible'); //
 }
